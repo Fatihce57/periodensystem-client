@@ -1,0 +1,87 @@
+<div class="table-container">
+  <h2>Periodensystem der Elemente</h2>
+    <div class="filter-container">
+        <div class="search-container">
+            Suche nach Name:
+            <input type="text" [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="z. B. Sauerstoff" />
+        </div>
+
+    <label>
+        Aggregatzustand:
+        <select [(ngModel)]="aggregatzustandFilter" (change)="applyFilters()">
+        <option value="">Alle</option>
+        <option value="fest">Fest</option>
+        <option value="flüssig">Flüssig</option>
+        <option value="gas">Gas</option>
+        </select>
+    </label>
+    <label>
+        Kategorie:
+        <select [(ngModel)]="kategorieFilter" (change)="applyFilters()">
+        <option value="">Alle</option>
+        <option value="alkalimetall">Alkalimetall</option>
+        <option value="edelgas">Edelgas</option>
+        <option value="metall">Metall</option>
+        <option value="nichtmetall">Nichtmetall</option>
+        <option value="übergangsmetall">Übergangsmetall</option>
+        </select>
+    </label>
+    </div>
+
+  <div class="periodic-table">
+    <ng-container *ngFor="let e of filteredElements">
+      <ng-container *ngIf="e.ordnungszahl < 58 || (e.ordnungszahl > 71 && e.ordnungszahl < 90) || e.ordnungszahl > 103">
+        <div
+          class="element-box"
+          [style.gridColumn]="+(e.gruppe || 1)"
+          [style.gridRow]="+(e.periode || 1)"
+          [ngClass]="getStateClass(e.aggregatzustand)"
+          (click)="showDetail(e)"
+          title="{{ e.name }} ({{ e.symbol }})"
+        >
+          <div class="symbol">{{ e.symbol }}</div>
+          <div class="number">{{ e.ordnungszahl }}</div>
+          <div class="name">{{ e.name }}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="element-row">
+    <ng-container *ngFor="let e of filteredElements">
+      <ng-container *ngIf="e.ordnungszahl >= 58 && e.ordnungszahl <= 71">
+        <div
+          class="element-box"
+          [ngClass]="getStateClass(e.aggregatzustand)"
+          (click)="showDetail(e)"
+          title="{{ e.name }} ({{ e.symbol }})"
+        >
+          <div class="symbol">{{ e.symbol }}</div>
+          <div class="number">{{ e.ordnungszahl }}</div>
+          <div class="name">{{ e.name }}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="element-row">
+    <ng-container *ngFor="let e of filteredElements">
+      <ng-container *ngIf="e.ordnungszahl >= 90 && e.ordnungszahl <= 103">
+        <div
+          class="element-box"
+          [ngClass]="getStateClass(e.aggregatzustand)"
+          (click)="showDetail(e)"
+          title="{{ e.name }} ({{ e.symbol }})"
+        >
+          <div class="symbol">{{ e.symbol }}</div>
+          <div class="number">{{ e.ordnungszahl }}</div>
+          <div class="name">{{ e.name }}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <app-element-detail
+    *ngIf="selectedElement"
+    [element]="selectedElement"
+    (close)="closeDetail()" />
+</div>

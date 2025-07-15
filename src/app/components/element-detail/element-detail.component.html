@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="onClose()">×</button>
+    <h2>{{ element.name }} ({{ element.symbol }})</h2>
+    <p><strong>Ordnungszahl:</strong> {{ element.ordnungszahl }}</p>
+    <p><strong>Atommasse:</strong> {{ element.atommasse }}</p>
+    <p><strong>Gruppe / Periode:</strong> {{ element.gruppe }} / {{ element.periode }}</p>
+    <p><strong>Aggregatzustand:</strong> {{ element.aggregatzustand }}</p>
+    <p><strong>Kategorie:</strong> {{ element.kategorie }}</p>
+    <p><strong>Siedepunkt:</strong> {{ element.siedepunkt }} K</p>
+    <p><strong>Schmelzpunkt:</strong> {{ element.schmelzpunkt }} K</p>
+    <p><strong>Elektronegativität:</strong> {{ element.elektronegativitaet }}</p>
+    <p><strong>Dichte:</strong> {{ element.dichte }} g/cm³</p>
+    <p><strong>Entdeckt:</strong> {{ element.entdeckt }}</p>
+    <p><strong>Oxidationszahlen:</strong> {{ element.oxidationszahlen }}</p>
+  </div>
+</div>
